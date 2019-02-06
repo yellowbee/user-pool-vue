@@ -1,0 +1,10 @@
+Client ID: cf28d9479a01ba2
+Client secret: 2228dd86bd2d96b94ba82836ea35fa37be7329cb
+
+http://localhost:8080/oauth2/callback#
+access_token=266490153720b32d6294de0d3d00a058f0b1b4cf
+&expires_in=315360000
+&token_type=bearer
+&refresh_token=16637aa1685509f2065525c70760b72ec688219e
+&account_username=myviewimg
+&account_id=101907941
