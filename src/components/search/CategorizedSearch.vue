@@ -2,13 +2,17 @@
     <div class="search">
         <div class="title">关键词搜索测试者</div>
         <div class="container">
-            <div class="item">学生</div>
+            <router-link tag="div" class="item" to="/search/testees">
+                <label>学生</label>
+            </router-link>
             <div class="item">互联网</div>
             <div class="item">制造业</div>
             <div class="item">金融</div>
             <div class="item">媒体</div>
             <div class="item">政府</div>
         </div>
+
+        <router-view></router-view>
     </div>
 </template>
 

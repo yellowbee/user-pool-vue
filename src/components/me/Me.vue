@@ -1,6 +1,9 @@
 <template>
     <div class="me">
         <div class="find-wrapper" ref="wrapper">
+            <div class="app-header">
+                <div class="title">我</div>
+            </div>
             <div class="find-content">
                 <router-link tag="div" class="friend-circle" to="">
                     <img class="avatar-img" src="../../assets/me/panda.png" />
@@ -16,7 +19,7 @@
                     <span class="find-item">改进建议</span>
                 </router-link>
                 -->
-                <router-link tag="div" class="friend-circle" to="/me/how-to">
+                <router-link tag="div" @click.native="onClickHowTo" class="friend-circle" to="/me/how-to">
                     <img class="find-img" src="../../assets/find/摇一摇.png" />
                     <span class="find-item">使用指南</span>
                 </router-link>
@@ -26,25 +29,48 @@
                     <span class="find-item">退出</span>
                 </div>
             </div>
-            <router-view></router-view>
         </div>
+        <router-view @backToMe="onBackToMe"></router-view>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-    import BScroll from 'better-scroll'
-
     export default {
-        components: {
-            BScroll,
+        data() {
+            return {
+                show: 'true',
+                prevRoute: null
+            }
         },
-        mounted () {
-            this.$nextTick(() => {
-                this.scroll = new BScroll(this.$refs.wrapper, {
-                    // better-scroll 会将点击事件去掉，要在这里开启，同时点击在PC 会被执行两次，要在这里控制
-                    click: true
-                })
+        methods: {
+            onClickHowTo() {
+                const element = this.$refs.wrapper;
+                element.classList.remove('animated', 'slideInLeft', 'faster');
+                element.classList.add('animated', 'slideOutLeft');
+            },
+            onBackToMe() {
+                const element = this.$refs.wrapper;
+                element.classList.remove('animated', 'slideOutLeft');
+                element.classList.add('animated', 'slideInLeft', 'faster');
+            }
+        },
+        /*updated() {
+            this.$nextTick(function() {
+                const element = this.$refs.wrapper;
+                element.classList.remove('animated', 'slideInLeft', 'slideOutLeft', 'faster');
+            });
+        },*/
+        beforeRouteEnter(to, from, next) {
+            next(vm => {
+                vm.prevRoute = from
             })
+        },
+        updated() {
+            const route = this.$route.fullPath;
+            if (route == '/' || route == '/search' || route == '/tasks') {
+                const element = this.$refs.wrapper;
+                element.classList.remove('animated', 'slideInLeft', 'slideOutLeft', 'faster');
+            }
         }
     }
 </script>
@@ -52,7 +78,7 @@
 <style scoped>
     .me {
         position: fixed;
-        top: 50px;
+        top: 0;
         bottom: 50px;
         left: 0;
         right: 0;
@@ -64,6 +90,9 @@
         overflow: hidden;
     }
     .find-content{
+        position: fixed;
+        top: 50px;
+        width: 100%;
         overflow: hidden;
     }
     .friend-circle{
@@ -94,5 +123,16 @@
         width: 30px;
         padding-right: 20px;
     }
-
+    .animated.faster {
+        animation-duration: .3s;
+    }
+    .app-header{
+        background-color: #184b86;
+        height: 50px;
+        color: #fff;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        /*z-index: 9;*/
+    }
 </style>

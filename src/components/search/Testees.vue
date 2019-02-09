@@ -1,37 +1,33 @@
 <template>
     <transition name="slide">
-        <div class="how-to">
-            <router-link @click.native="onClickBack" tag="div" to="/me">
+        <div class="testee-list">
             <div class="back">
-                <!-- <div @click="back"> -->
+                <div @click="back">
                     <img src="../../assets/retrun-arrow.png" height="16" width="19" />
-                <!-- </div> -->
-                <span>使用指南</span>
-            </div>
-            </router-link>
-
-            <div class="content-wrapper" ref="wrapper">
-                <div class="content">
-                    <img class="how-to-img" src="../../assets/me/how_to.png" />
                 </div>
+                <span>学生</span>
             </div>
+            <TesteeList :testees="testees" />
         </div>
     </transition>
 </template>
 
 <script>
-    import BScroll from 'better-scroll';
+    import TesteeList from './TesteeList';
 
     export default {
+        name: "Testees",
         components: {
-            BScroll
+            TesteeList
         },
-        mounted() {
-            this.$nextTick(() => {
-                this.scroll = new BScroll(this.$refs.wrapper, {click: true})
-            })
+        data: function() {
+            return {
+                testees: [
+                    {name: "张三", id: 1},
+                    {name: "李四", id: 2},
+                ]
+            }
         },
-        name: "HowTo",
         methods: {
             back (event) {
                 // 为防止PC端时,点击事件会被执行两次,须作如下判断，但是这里暂时不需要，参考http://blog.csdn.net/alsnei/article/details/54375957
@@ -39,9 +35,6 @@
                 //   return
                 // }
                 this.$router.back()   // 返回上一级
-            },
-            onClickBack() {
-                this.$emit('backToMe', null);
             }
         }
     }
@@ -75,16 +68,7 @@
         padding-left: 10px;
         border-left: 1px solid #000;
     }
-
-    .how-to{
-        /*position: fixed;
-        top: 0;
-        bottom: 50px;
-        left: 0;
-        right: 0;
-        z-index: 99;
-        background-color: rgba(238,233,233,0.6);*/
-
+    .testee-list {
         position: fixed;
         width:100%;
         height:100%;
@@ -96,17 +80,6 @@
         background-color: rgba(238,233,233,1);
         /*overflow: scroll;*/
     }
-    .how-to-img {
-        display: block;
-        width: 100%;
-        /*margin: 10px auto;*/
-    }
-
-    .content-wrapper{
-        height: 100%;
-        overflow: hidden;
-    }
-
     .slide-enter-active,.slide-leave-active{
         transition: all 0.3s;
     }

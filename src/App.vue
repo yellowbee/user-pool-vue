@@ -1,15 +1,6 @@
 <template>
     <div id="app">
         <div>
-            <div class="app-header">
-                <div class="title">用户池</div>
-                <!-- <router-link tag="div" class="search" to="/search">
-                    <img src="./assets/搜索.png" height="20" width="20">
-                </router-link>
-                <div class="plus" @click="logClick">
-                    <img src="./assets/加号.png" height="20" width="20">
-                </div> -->
-            </div>
             <keep-alive>
                 <router-view></router-view>
             </keep-alive>
@@ -31,30 +22,15 @@
                 </router-link>
             </div>
         </div>
-        <Plus :is-show="isShowPlus" @on-close="closeDialog"></Plus>
     </div>
 </template>
 
 <script>
-    import Plus from './components/plus/plus'
-
     export default {
         name: 'app',
-        components: {
-            Plus
-        },
         data () {
-            return {
-                isShowPlus: false
-            }
         },
         methods: {
-            closeDialog () {
-                this.isShowPlus = false
-            },
-            logClick () {
-                this.isShowPlus = true
-            }
         }
     }
 </script>

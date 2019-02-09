@@ -7,6 +7,7 @@ import CategorizedSearch from '../components/search/CategorizedSearch';
 import Me from '../components/me/Me';
 import HowTo from '../components/me/HowTo';
 import Tasks from '../components/tasks/Tasks';
+import Testees from '../components/search/Testees';
 
 Vue.use(VueRouter);
 
@@ -31,15 +32,24 @@ export default new VueRouter({
         },
         {
             path: '/search',
-            component: CategorizedSearch
+            component: CategorizedSearch,
+            children: [
+                {
+                    path: 'testees',
+                    component: Testees
+                }
+
+            ]
         },
         {
             path: '/me',
-            component: Me
-        },
-        {
-            path: '/me/how-to',
-            component: HowTo
+            component: Me,
+            children: [
+                {
+                    path: 'how-to',
+                    component: HowTo
+                }
+            ]
         },
         {
             path: '/tasks',
