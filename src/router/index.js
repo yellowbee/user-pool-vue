@@ -35,7 +35,7 @@ export default new VueRouter({
             component: CategorizedSearch,
             children: [
                 {
-                    path: 'testees',
+                    path: 'testees/:category',
                     component: Testees
                 }
 

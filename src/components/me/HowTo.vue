@@ -1,14 +1,7 @@
 <template>
     <transition name="slide">
         <div class="how-to">
-            <router-link @click.native="onClickBack" tag="div" to="/me">
-            <div class="back">
-                <!-- <div @click="back"> -->
-                    <img src="../../assets/retrun-arrow.png" height="16" width="19" />
-                <!-- </div> -->
-                <span>使用指南</span>
-            </div>
-            </router-link>
+            <Back @click.native="onClickBack" :destRoute="'/me'" :title="'使用指南'"/>
 
             <div class="content-wrapper" ref="wrapper">
                 <div class="content">
@@ -21,10 +14,12 @@
 
 <script>
     import BScroll from 'better-scroll';
+    import Back from '../common/Back';
 
     export default {
         components: {
-            BScroll
+            BScroll,
+            Back
         },
         mounted() {
             this.$nextTick(() => {
@@ -33,13 +28,6 @@
         },
         name: "HowTo",
         methods: {
-            back (event) {
-                // 为防止PC端时,点击事件会被执行两次,须作如下判断，但是这里暂时不需要，参考http://blog.csdn.net/alsnei/article/details/54375957
-                // if (!event._constructed) {
-                //   return
-                // }
-                this.$router.back()   // 返回上一级
-            },
             onClickBack() {
                 this.$emit('backToMe', null);
             }
@@ -48,34 +36,6 @@
 </script>
 
 <style scoped>
-    .back{
-        background: #184b86;
-        height: 50px;
-        color: #fff;
-        /*position: fixed;*/
-        width: 100%;
-        z-index: 99;
-    }
-    .back div{
-        height: 50px;
-        width: 50px;
-    }
-    .back img{
-        position: absolute;
-        top: 25px;
-        margin-top: -8px;
-        left: 14px;
-    }
-    .back span{
-        position: absolute;
-        font-size: 20px;
-        top: 25px;
-        margin-top: -10px;
-        left: 50px;
-        padding-left: 10px;
-        border-left: 1px solid #000;
-    }
-
     .how-to{
         /*position: fixed;
         top: 0;

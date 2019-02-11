@@ -1,41 +1,57 @@
 <template>
     <transition name="slide">
         <div class="testee-list">
-            <div class="back">
+            <Back @click.native="onClickBack" :destRoute="'/search'" :title="$route.params.category" />
+            <!-- <div class="back">
                 <div @click="back">
                     <img src="../../assets/retrun-arrow.png" height="16" width="19" />
                 </div>
                 <span>学生</span>
+            </div> -->
+            <div class="spinner" v-if="testees.length === 0">
+                <mt-spinner size="50" color="#184b86" type="fading-circle"></mt-spinner>
             </div>
-            <TesteeList :testees="testees" />
+            <div v-else>
+                <TesteeList :testees="testees" />
+            </div>
         </div>
     </transition>
 </template>
 
 <script>
+    import axios from 'axios';
     import TesteeList from './TesteeList';
+    import Back from '../common/Back';
 
     export default {
         name: "Testees",
         components: {
-            TesteeList
+            TesteeList,
+            Back
         },
         data: function() {
             return {
-                testees: [
-                    {name: "张三", id: 1},
-                    {name: "李四", id: 2},
-                ]
+                testees: []
             }
         },
         methods: {
-            back (event) {
+            onClickBack() {
+                this.$emit('backToMe', null);
+            }
+            /*back (event) {
                 // 为防止PC端时,点击事件会被执行两次,须作如下判断，但是这里暂时不需要，参考http://blog.csdn.net/alsnei/article/details/54375957
                 // if (!event._constructed) {
                 //   return
                 // }
                 this.$router.back()   // 返回上一级
-            }
+            }*/
+        },
+        beforeCreate() {
+            axios.post('https://woyaotest.com/testees', {
+                industry: this.$route.params.category
+            }).then(response => {
+                this.testees = response.data;
+            });
         }
     }
 </script>
@@ -85,5 +101,11 @@
     }
     .slide-enter,.slide-leave-to{
         transform: translate3d(100%, 0, 0);
+    }
+
+    .spinner {
+        width: 85px;
+        height: 85px;
+        margin: 200px auto;
     }
 </style>

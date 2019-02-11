@@ -1,22 +1,30 @@
 <template>
     <div class="tasks">
+        <Header :title="'我的任务'"/>
         <div class="task-publish">
             <span>发布任务</span>
         </div>
+        <Tabbar/>
     </div>
-    
 </template>
 
 <script>
+    import Tabbar from '../common/Tabbar';
+    import Header from '../common/Header';
+
     export default {
-        name: "tasks"
+        name: "tasks",
+        components: {
+            Tabbar,
+            Header
+        }
     }
 </script>
 
 <style scoped>
-    .tasks{
+    .tasks {
         position: fixed;
-        top: 50px;
+        top: 0;
         bottom: 50px;
         left: 0;
         right: 0;
@@ -26,7 +34,7 @@
 
     .task-publish {
         width: 80%;
-        margin: 20px auto 0 auto;
+        margin: 70px auto 0 auto;
         padding: 15px 0;
         text-align: center;
         background-color: #184b86;

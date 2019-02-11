@@ -12,7 +12,7 @@ import './common/style.css' // 这里需要引入基本的样式
 // import vConsole from 'vconsole'  // 针对手机网页的前端 console 调试面板
 // console.log('test')
 
-Vue.use(MintUI)
+Vue.use(MintUI);
 
 /*Vue.use(VueLazyLoad, {
     loading: require('./assets/lazy.png')

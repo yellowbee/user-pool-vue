@@ -1,24 +1,67 @@
 <template>
     <div class="search">
-        <div class="title">关键词搜索测试者</div>
-        <div class="container">
-            <router-link tag="div" class="item" to="/search/testees">
-                <label>学生</label>
-            </router-link>
-            <div class="item">互联网</div>
-            <div class="item">制造业</div>
-            <div class="item">金融</div>
-            <div class="item">媒体</div>
-            <div class="item">政府</div>
+        <div class="wrapper" ref="wrapper">
+            <Header :title="'找人测试'"/>
+            <div class="title">关键词搜索测试者</div>
+            <div class="container">
+                <!-- register click.native event to config slide-out effect  -->
+                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/学生">
+                    <label>学生</label>
+                </router-link>
+                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/互联网">
+                    <label>互联网</label>
+                </router-link>
+                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/制造业">
+                    <label>制造业</label>
+                </router-link>
+                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/金融">
+                    <label>金融</label>
+                </router-link>
+                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/媒体">
+                    <label>媒体</label>
+                </router-link>
+                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/政府">
+                    <label>政府</label>
+                </router-link>
+            </div>
+            <Tabbar/>
         </div>
 
-        <router-view></router-view>
+        <!-- catch backToMe event to config slide-in effect  -->
+        <router-view @backToMe="onBackToMe"></router-view>
     </div>
 </template>
 
 <script>
+    import Tabbar from '../common/Tabbar';
+    import Header from '../common/Header';
+
     export default {
-        name: "CategorizedSearch"
+        name: "CategorizedSearch",
+        components: {
+            Tabbar,
+            Header
+        },
+        methods: {
+            onClickCategory() {
+                const element = this.$refs.wrapper;
+                element.classList.remove('animated', 'slideInLeft', 'faster');
+                element.classList.add('animated', 'slideOutLeft');
+            },
+            onBackToMe() {
+                const element = this.$refs.wrapper;
+                element.classList.remove('animated', 'slideOutLeft');
+                element.classList.add('animated', 'slideInLeft', 'faster');
+            }
+        },
+        /* remove all slide effects when routing away from /search */
+        updated() {
+            const route = this.$route.fullPath;
+            if (route == '/' || route == '/me' || route == '/tasks') {
+                const element = this.$refs.wrapper;
+                element.classList.remove('animated', 'slideInLeft', 'slideOutLeft', 'faster');
+            }
+        }
     }
 </script>
 
@@ -27,16 +70,20 @@
         position: fixed;
         /*border: 1px solid red;*/
         /*width: 100%;*/
-        top: 50px;
-        bottom: 50px;
+        top: 0;
+        bottom: 0;
         left: 0;
         right: 0;
         background-color: rgba(238,233,233,0.6);
     }
+    .wrapper{
+        height: 100%;
+        overflow: hidden;
+    }
 
     .title {
         text-align: center;
-        margin: 10px 0;
+        margin: 60px 0;
         font-size: 25px;
     }
 
@@ -106,5 +153,10 @@
         font-size: 12px;
         color: rgba(153,153,153,0.8);
     }
+    .animated.faster {
+        animation-duration: .3s;
+    }
+
+
 
 </style>

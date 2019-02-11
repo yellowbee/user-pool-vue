@@ -4,6 +4,7 @@
             <keep-alive>
                 <router-view></router-view>
             </keep-alive>
+            <!--
             <div class="tab">
                 <router-link tag="div" class="tab-item" to="/search">
                     <div class="tab-link tab-link-1">
@@ -21,6 +22,7 @@
                     </div>
                 </router-link>
             </div>
+            -->
         </div>
     </div>
 </template>
@@ -28,8 +30,6 @@
 <script>
     export default {
         name: 'app',
-        data () {
-        },
         methods: {
         }
     }
@@ -116,11 +116,6 @@
         position: absolute;
         top: 14px;
         right: 80px;
-    }
-    .plus img{
-        position: absolute;
-        top: 14px;
-        right: 24px;
     }
     .tab{
         border-top: 1px solid rgba(153,153,153,0.4);
