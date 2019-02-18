@@ -65,7 +65,9 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    @import "../../scss/constants";
+
     .search {
         position: fixed;
         /*border: 1px solid red;*/
@@ -74,7 +76,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background-color: rgba(238,233,233,0.6);
+        background-color: $bg-theme-color;
     }
     .wrapper{
         height: 100%;
@@ -84,7 +86,7 @@
     .title {
         text-align: center;
         margin: 60px 0;
-        font-size: 25px;
+        font-size: $ft-page-title;
     }
 
     .container {

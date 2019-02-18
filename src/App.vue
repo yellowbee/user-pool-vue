@@ -160,6 +160,9 @@
         background: url('./assets/tab/me_off.png') no-repeat center 8px;
         background-size: 16px 16px;
     }
+    textarea:focus, input:focus {
+        outline: none;
+    }
     .router-link-active .tab-link{
         color: #184b86;
     }

@@ -1,5 +1,6 @@
 <template>
     <li class="testee">
+        <div v-for="i in [1,2,3]">
         <div class="head">
             {{ testee.name }} | {{ testee.dob }} | {{ testee.sex }} | {{ testee.industry }} | {{ testee.edu }}
         </div>
@@ -18,6 +19,7 @@
                 现金: {{ testee.price }}元/小时
             </div>
         </div>
+        </div>
     </li>
 </template>
 
@@ -30,7 +32,9 @@
    }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    @import "../../scss/constants";
+
     li {
         cursor: pointer;
         margin: 10px 0;
@@ -38,16 +42,12 @@
         background-color: white;
     }
 
-    li:hover {
-        background-color: gray;
-    }
-
     .head {
         color: #184b86;
         margin: 10px 0;
     }
     .sec-head {
-        font-weight: 700;
+        font-weight: $ft-weight;
         margin-bottom: 5px;
     }
     .section {

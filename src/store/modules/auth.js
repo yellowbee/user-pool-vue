@@ -1,9 +1,8 @@
-import api from '../../api/imgur';
-import qs from 'qs';
 import router from '../../router';
 
 const state = {
-    token: window.localStorage.getItem('imgur_token')
+    token: window.localStorage.getItem('token'),
+    uuid: null
 };
 
 const getters = {
@@ -11,24 +10,28 @@ const getters = {
 };
 
 const actions = {
-    login: () => {
-        api.login();
-    },
-    finalizeLogin: ({ commit }, hash) => {
-        const query = qs.parse(hash.replace('#', ''));
-        commit('setToken', query.access_token);
-        window.localStorage.setItem('imgur_token', query.access_token);
-        router.push('/');
+    // Both signin and signup use this method
+    login: ({ commit }, { token, uuid }) => {
+        commit('setToken', token);
+        commit('setUuid', uuid);
+        window.localStorage.setItem('token', token);
+        window.localStorage.setItem('uuid', uuid);
+        router.push('/me');
     },
     logout: ({ commit }) => {
         commit('setToken', null);
-        window.localStorage.removeItem('imgur_token');
+        commit('setUuid', null);
+        window.localStorage.removeItem('token');
+        window.localStorage.removeItem('uuid');
     }
 };
 
 const mutations = {
     setToken: (state, token) => {
         state.token = token;
+    },
+    setUuid: (state, uuid) => {
+        state.uuid = uuid;
     }
 };
 

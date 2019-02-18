@@ -1,5 +1,5 @@
 <template>
-    <router-link @click.native="onClickBack" tag="div" :to="{path: destRoute}">
+    <router-link tag="div" :to="{path: destRoute}">
         <div class="back">
             <img src="../../assets/retrun-arrow.png" height="16" width="19" />
             <span>{{ title }}</span>
@@ -13,11 +13,6 @@
         props: {
             destRoute: String,
             title: String
-        },
-        methods: {
-            onClickBack() {
-                this.$emit('backToMe', null);
-            }
         }
     }
 </script>

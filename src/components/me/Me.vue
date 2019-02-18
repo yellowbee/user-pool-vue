@@ -3,17 +3,19 @@
         <div class="wrapper" ref="wrapper">
             <Header :title="'我'"/>
             <div class="find-content">
-                <router-link tag="div" class="friend-circle" to="">
-                    <img class="avatar-img" src="../../assets/me/panda.png" />
-                    <span class="find-item">功夫熊猫</span>
+                <div class="friend-circle">
+                <img class="avatar-img" src="../../assets/me/panda.png" />
+                <router-link v-if="!isLoggedIn" tag="div" @click.native="onClickSubRoute" to="/me/sign-in">
+                    <span class="label-text">登录或注册, 查看更多信息</span>
                 </router-link>
-                <router-link tag="div" @click.native="onClickHowTo" class="friend-circle" to="/me/how-to">
-                    <img class="find-img" src="../../assets/find/摇一摇.png" />
+                </div>
+                <router-link tag="div" @click.native="onClickSubRoute" class="friend-circle" to="/me/how-to">
+                    <img class="find-img" src="../../assets/me/guide.svg" />
                     <span class="find-item">使用指南</span>
                 </router-link>
 
-                <div class="exit">
-                    <img class="find-img" src="../../assets/find/小程序.png" />
+                <div v-if="isLoggedIn" @click="logout" class="exit">
+                    <img class="find-img" src="../../assets/me/exit.svg" />
                     <span class="find-item">退出</span>
                 </div>
                 <Tabbar/>
@@ -26,11 +28,15 @@
 <script type="text/ecmascript-6">
     import Tabbar from '../common/Tabbar';
     import Header from '../common/Header';
+    import { mapGetters, mapActions } from 'vuex';
 
     export default {
         components: {
             Tabbar,
             Header
+        },
+        computed: {
+            ...mapGetters(['isLoggedIn'])
         },
         data() {
             return {
@@ -39,7 +45,7 @@
             }
         },
         methods: {
-            onClickHowTo() {
+            onClickSubRoute() {
                 const element = this.$refs.wrapper;
                 element.classList.remove('animated', 'slideInLeft', 'faster');
                 element.classList.add('animated', 'slideOutLeft');
@@ -48,11 +54,12 @@
                 const element = this.$refs.wrapper;
                 element.classList.remove('animated', 'slideOutLeft');
                 element.classList.add('animated', 'slideInLeft', 'faster');
-            }
+            },
+            ...mapActions(['logout'])
         },
         updated() {
             const route = this.$route.fullPath;
-            if (route == '/' || route == '/search' || route == '/tasks') {
+            if (route === '/' || route === '/search' || route === '/tasks' || route === '/me/sign-in') {
                 const element = this.$refs.wrapper;
                 element.classList.remove('animated', 'slideInLeft', 'slideOutLeft', 'faster');
             }
@@ -60,7 +67,9 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    @import '../../scss/constants';
+
     .me {
         position: fixed;
         top: 0;
@@ -68,7 +77,7 @@
         left: 0;
         right: 0;
         z-index: 99;
-        background-color: rgba(238,233,233,0.6);
+        background-color: $bg-theme-color;
     }
     .wrapper{
         height: 100%;
@@ -111,12 +120,7 @@
     .animated.faster {
         animation-duration: .3s;
     }
-    /*.app-header{
-        background-color: #184b86;
-        height: 50px;
-        color: #fff;
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }*/
+    .label-text {
+        text-decoration: underline;
+    }
 </style>

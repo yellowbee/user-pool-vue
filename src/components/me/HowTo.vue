@@ -59,7 +59,6 @@
     .how-to-img {
         display: block;
         width: 100%;
-        /*margin: 10px auto;*/
     }
 
     .content-wrapper{

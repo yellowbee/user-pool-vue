@@ -56,7 +56,9 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    @import "../../scss/constants";
+
     .back{
         background: #184b86;
         height: 50px;
@@ -93,7 +95,7 @@
         right: 0;
         bottom: 0;
         z-index: 89;
-        background-color: rgba(238,233,233,1);
+        background-color: $bg-theme-color;
         /*overflow: scroll;*/
     }
     .slide-enter-active,.slide-leave-active{

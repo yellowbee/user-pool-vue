@@ -2,7 +2,8 @@
     <div class="tasks">
         <Header :title="'我的任务'"/>
         <div class="task-publish">
-            <span>发布任务</span>
+        <mt-button type="primary">发布任务</mt-button>
+            <!-- <span>发布任务</span> -->
         </div>
         <Tabbar/>
     </div>
@@ -21,7 +22,9 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    @import "../../scss/constants";
+
     .tasks {
         position: fixed;
         top: 0;
@@ -29,17 +32,19 @@
         left: 0;
         right: 0;
         z-index: 99;
-        background-color: rgba(238,233,233,0.6);
+        background-color: $bg-theme-color;
     }
 
     .task-publish {
-        width: 80%;
+        width: 90%;
         margin: 70px auto 0 auto;
-        padding: 15px 0;
+        /*padding: 15px 0;*/
         text-align: center;
-        background-color: #184b86;
-        border-radius: 5px;
         color: white;
         font-size: 20px;
+    }
+    .mint-button {
+        width: 100%;
+        background-color: $theme-color;
     }
 </style>
