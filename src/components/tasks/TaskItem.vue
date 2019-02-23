@@ -1,33 +1,39 @@
 <template>
     <li class="testee">
         <div class="head">
-            {{ testee.name }} | {{ testee.dob }} | {{ testee.sex }} | {{ testee.industry }} | {{ testee.edu }}
+            {{ task.name }}
         </div>
         <div class="section">
-            {{ testee.desc }}
+            {{ task.desc }}
         </div>
         <div class="section">
-            <div class="sec-head">联系方式</div>
+            <div class="sec-head">测试者标准</div>
             <div>
-                电话: {{ testee.phone }} 微信号: {{ testee.wechat }}
+                {{ task.age }} {{ task.sex }} {{ task.industry }} {{ task.edu }}
             </div>
         </div>
         <div class="section">
-            <div class="sec-head">期待测试报酬:</div>
+            <div class="sec-head">测试报酬:</div>
             <div>
-                现金: {{ testee.price }}元/小时
+                {{ task.payType }} {{task.payDesc }}
+            </div>
+        </div>
+        <div class="section">
+            <div class="sec-head">联系方式:</div>
+            <div>
+                手机号码: {{ task.mobile }}
             </div>
         </div>
     </li>
 </template>
 
 <script>
-   export default {
-       name: 'TesteeListItem',
-       props: {
-           testee: Object
-       }
-   }
+    export default {
+        name: 'TaskItem',
+        props: {
+            task: Object
+        }
+    }
 </script>
 
 <style scoped lang="scss">

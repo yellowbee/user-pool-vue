@@ -6,7 +6,7 @@
                 <div class="friend-circle">
                 <img class="avatar-img" src="../../assets/me/panda.png" />
                 <router-link v-if="!isLoggedIn" tag="div" @click.native="onClickSubRoute" to="/me/sign-in">
-                    <span class="label-text">登录或注册, 查看更多信息</span>
+                    <span class="label-text">这里登录或注册, 查看更多信息</span>
                 </router-link>
                 </div>
                 <router-link tag="div" @click.native="onClickSubRoute" class="friend-circle" to="/me/how-to">
@@ -59,7 +59,7 @@
         },
         updated() {
             const route = this.$route.fullPath;
-            if (route === '/' || route === '/search' || route === '/tasks' || route === '/me/sign-in') {
+            if (route === '/' || route === '/search' || route === '/tasks' || route === '/me/sign-in' || route === '/me/sign-in/sign-up') {
                 const element = this.$refs.wrapper;
                 element.classList.remove('animated', 'slideInLeft', 'slideOutLeft', 'faster');
             }
@@ -93,7 +93,7 @@
         display: flex;
         align-items: center;
         left: 0;
-        height: 30px;
+        height: 40px;
         padding: 8px 10px;
         margin-top: 10px;
         background-color: #fff;
@@ -102,7 +102,7 @@
         display: flex;
         align-items: center;
         left: 0;
-        height: 30px;
+        height: 40px;
         padding: 8px 10px;
         margin-top: 30px;
         background-color: #fff;

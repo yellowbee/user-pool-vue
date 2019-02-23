@@ -2,11 +2,13 @@ import router from '../../router';
 
 const state = {
     token: window.localStorage.getItem('token'),
-    uuid: null
+    uuid: window.localStorage.getItem('uuid')
 };
 
 const getters = {
-    isLoggedIn: state => !!state.token
+    isLoggedIn: state => !!state.token,
+    getUuid: state => state.uuid,
+    getToken: state => state.token
 };
 
 const actions = {

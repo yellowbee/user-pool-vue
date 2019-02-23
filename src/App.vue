@@ -94,7 +94,9 @@
         height: 100%;
         width: 100%;
         overflow: hidden;
-
+    }
+    div, input, textarea {
+        box-sizing: border-box;
     }
     #app{
         height: 100%;

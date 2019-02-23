@@ -10,6 +10,7 @@ import Tasks from '../components/tasks/Tasks';
 import Testees from '../components/search/Testees';
 import Signin from '../components/me/Signin';
 import Signup from '../components/me/Signup';
+import NewTask from '../components/tasks/NewTask';
 
 Vue.use(VueRouter);
 
@@ -65,7 +66,13 @@ export default new VueRouter({
         },
         {
             path: '/tasks',
-            component: Tasks
+            component: Tasks,
+            children: [
+                {
+                    path: 'new-task',
+                    component: NewTask
+                }
+            ]
         }
     ]
 });

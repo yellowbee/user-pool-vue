@@ -8,7 +8,7 @@
 
                 <form @submit.prevent="handleSubmit">
                     <div v-if="errors.name" class="err-msg">{{ errors.name }}</div>
-                    <input class="form-phone" type="text" v-model="tester.name" placeholder="企业名称"/>
+                    <input class="form-mobile" type="text" v-model="tester.name" placeholder="企业名称"/>
                     <div>
                         <div v-if="errors.industry" style="display: inline-block;width: 50%"><div class="err-msg">{{ errors.industry }}</div></div>
                         <div v-if="errors.size" style="display: inline-block;width: 50%"><div class="err-msg">{{ errors.size }}</div></div>
@@ -32,15 +32,16 @@
                             @confirm="handlePickerConfirm">
                     </awesome-picker>
 
-                    <div v-if="errors.phone" class="err-msg">{{ errors.phone }}</div>
-                    <div v-if="errors.response" class="err-msg">{{ errors.response }}</div>
-                    <input class="form-phone" type="text" v-model="tester.phone" placeholder="电话">
+                    <div v-if="errors.mobile" class="err-msg">{{ errors.mobile }}</div>
+                    <input class="form-mobile" type="text" v-model="tester.mobile" placeholder="手机">
+                    <div v-if="errors.code" class="err-msg">{{ errors.code }}</div>
                     <input class="form-code" type="text" v-model="tester.code" placeholder="验证码">
-                    <mt-button @click="onGetCode" class="form-get-code" type="primary" disabled>
+                    <mt-button @click="onGetCode" class="form-get-code" type="primary" :disabled="getCodeBtn.disabled">
                         获取验证码
                     </mt-button>
-                    <div style="width: 100%; border-bottom: 1px solid gray"/>
-                    <mt-button class="form-submit" type="submit">
+                    <div style="width: 100%; border-bottom: 1px solid gray; margin-bottom: 10px;"/>
+                    <div v-if="errors.response" class="err-msg">{{ errors.response }}</div>
+                    <mt-button class="form-submit" type="submit" :disabled="signupBtn.disabled">
                         注册
                     </mt-button>
                 </form>
@@ -72,29 +73,58 @@
             },
             onGetCode(e) {
                 e.preventDefault();
+                if (!this.tester.mobile || !this.tester.mobile.match(/^1[\d]{10}$/)) {
+                    this.errors.mobile = '请输入有效手机号';
+                    return;
+                } else {
+                    this.errors.mobile = null;
+                }
+
+                this.getCodeBtn.disabled = true;
+                axios.post('https://woyaotest.com/sms', {
+                    mobile: this.tester.mobile
+                })
+                    .then((res) => {
+                        if (!res.data.success) {
+                            this.errors.response = '验证码发送失败，请再次获取。'
+                        } else {
+                            this.errors.response = null;
+                        }
+                        this.getCodeBtn.disabled = false;
+                    })
+                    .catch(function (err) {
+                        this.errors.response = '验证码发送失败，请再次获取。'
+                        this.getCodeBtn.disabled = false;
+                    });
             },
             handleSubmit(e) {
                 e.preventDefault();
                 if (this.checkForm()) {
-                    // Send data to the server or update your stores and such.
+                    this.signupBtn.disabled = true;
+
                     axios.post('https://woyaotest.com/new-tester', {
                         name: this.tester.name,
                         industry: this.tester.industry,
                         size: this.tester.size,
-                        phone: this.tester.phone
+                        mobile: this.tester.mobile,
+                        code: this.tester.code
                     })
                         .then((res) => {
                             if (!res.data.success) {
                                 if (res.data.errorCode === '0001') {
-                                    this.errors.response = '该电话号码已经使用，请尝试其他号码。'
+                                    this.errors.response = '该手机号码已经使用，请尝试其他号码。'
+                                } else if (res.data.errorCode === '0005') {
+                                    this.errors.response = '验证码不正确，请重新输入或获取。';
                                 }
+                                this.signupBtn.disabled = false;
                             } else {
                                 this.errors.response = null;
                                 this.login({ token: res.data.token.value, uuid: res.data.tester.uuid });
                             }
                         })
                         .catch(function (err) {
-                            err
+                            this.errors.response = '验证码不正确，请重新输入或获取';
+                            this.signupBtn.disabled = false;
                         });
                 }
             },
@@ -132,11 +162,18 @@
                     this.errors.size = null;
                 }
 
-                if (!this.tester.phone || !this.tester.phone.match(/^1[\d]{10}$/)) {
-                    this.errors.phone = '手机号必须为以1开头的11位数字';
+                if (!this.tester.mobile || !this.tester.mobile.match(/^1[\d]{10}$/)) {
+                    this.errors.mobile = '请输入有效手机号';
                     success = false;
                 } else {
-                    this.errors.phone = null;
+                    this.errors.mobile = null;
+                }
+
+                if (!this.tester.code) {
+                    this.errors.code = '验证码不能为空';
+                    success = false;
+                } else {
+                    this.errors.code = null;
                 }
 
                 return success;
@@ -148,7 +185,7 @@
                   name: null,
                   industry: null,
                   size: null,
-                  phone: null,
+                  mobile: null,
                   code: null,
                   response: null
                 },
@@ -156,7 +193,7 @@
                     name: null,
                     industry: null,
                     size: null,
-                    phone: null,
+                    mobile: null,
                     code: null
                 },
                 picker: {
@@ -165,9 +202,13 @@
                         ['20','20-50','50-100','100-500','500-1000','1000以上']
                     ]
                 },
-                industry: '行业',
-                size: '规模',
-                pickerValue: null
+                getCodeBtn: {
+                    disabled: false,
+                    message: null
+                },
+                signupBtn: {
+                    disabled: false
+                }
             }
         }
     }
@@ -207,7 +248,7 @@
         width: 50%;
         padding: 12px 0;
     }
-    .form-phone {
+    .form-mobile {
         display: block;
         width: 100%;
         height: 40px;

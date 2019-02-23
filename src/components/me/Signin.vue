@@ -8,14 +8,16 @@
                 <div class="page-title">企业登录</div>
 
                 <form @submit="handleSubmit">
-                    <div v-if="errors.phone" class="err-msg">{{ errors.phone }}</div>
-                    <input class="form-phone" type="text" v-model="tester.phone" placeholder="电话"/>
+                    <div v-if="errors.mobile" class="err-msg">{{ errors.mobile }}</div>
+                    <input class="form-mobile" type="text" v-model="tester.mobile" placeholder="手机"/>
+                    <div v-if="errors.code" class="err-msg">{{ errors.code }}</div>
                     <input class="form-code" type="text" v-model="tester.code" placeholder="验证码">
-                    <mt-button class="form-get-code" type="submit">
+                    <mt-button @click="onGetCode" class="form-get-code" type="primary" :disabled="getCodeBtn.disabled">
                         获取验证码
                     </mt-button>
-                    <div style="width: 100%; border-bottom: 1px solid gray"/>
-                    <mt-button class="form-submit" type="submit">
+                    <div style="width: 100%; border-bottom: 1px solid gray; margin-bottom: 10px;"/>
+                    <div v-if="errors.response" class="err-msg">{{ errors.response }}</div>
+                    <mt-button class="form-submit" type="submit" :disabled="signinBtn.disabled">
                         登录
                     </mt-button>
                 </form>
@@ -32,7 +34,7 @@
 <script>
     import Back from '../common/Back';
     import axios from 'axios';
-    import { mapActions, mapGetters } from 'vuex';
+    import { mapActions } from 'vuex';
 
     export default {
         name: "Signin",
@@ -57,45 +59,92 @@
             handleSubmit(e) {
                 e.preventDefault();
                 if (this.checkForm()) {
-                    // Send data to the server or update your stores and such.
+                    this.signinBtn.disabled = true;
+
                     axios.post('https://woyaotest.com/tester-login', {
-                        phone: this.tester.phone,
+                        mobile: this.tester.mobile,
                         code: this.tester.code
                     })
                         .then((res) => {
                             if (!res.data.success) {
-                                if (res.data.errorCode === '0001') {
-                                    this.errors.response = '该电话号码已经使用，请尝试其他号码。'
+                                if (res.data.errorCode === '0003') {
+                                    this.errors.response = '手机号码还未注册，请尝试用其他号码登录, 或先注册。'
+                                } else if (res.data.errorCode === '0005') {
+                                    this.errors.response = '验证码不正确，请重新输入或获取';
                                 }
+                                this.signinBtn.disabled = false;
                             } else {
                                 this.errors.response = null;
                                 this.login({ token: res.data.token, uuid: res.data.uuid });
                             }
                         })
                         .catch(function (err) {
-                            err
+                            this.errors.response = '验证码不正确，请重新输入或获取';
+                            this.signinBtn.disabled = false;
                         });
                 }
             },
             checkForm() {
-                if (!this.tester.phone.match(/1[\d]{10}/)) {
-                    this.errors.phone = '手机号必须为以1开头的11位数字';
-                    return false;
+                let success = true;
+
+                if (!this.tester.mobile.match(/1[\d]{10}/)) {
+                    this.errors.mobile = '请输入有效手机号';
+                    success = false;
+                } else {
+                    this.errors.mobile = null;
                 }
 
-                this.errors.phone = null;
-                return true;
-            }
+                if (!this.tester.code) {
+                    this.errors.code = '验证码不能为空';
+                    success = false;
+                } else {
+                    this.errors.code = null;
+                }
 
+                return success;
+            },
+            onGetCode(e) {
+                e.preventDefault();
+                if (!this.tester.mobile || !this.tester.mobile.match(/^1[\d]{10}$/)) {
+                    this.errors.mobile = '请输入有效手机号';
+                    return;
+                } else {
+                    this.errors.mobile = null;
+                }
+
+                this.getCodeBtn.disabled = true;
+                axios.post('https://woyaotest.com/sms', {
+                    mobile: this.tester.mobile
+                })
+                    .then((res) => {
+                        if (!res.data.success) {
+                            this.errors.response = '验证码发送失败，请再次获取。'
+                        } else {
+                            this.errors.response = null;
+                        }
+                        this.getCodeBtn.disabled = false;
+                    })
+                    .catch(function (err) {
+                        this.errors.response = '验证码发送失败，请再次获取。'
+                        this.getCodeBtn.disabled = false;
+                    });
+            },
         },
         data() {
             return {
                 errors: {
-                    phone: ''
+                    mobile: null,
+                    response: null
                 },
                 tester: {
-                    phone: '',
+                    mobile: '',
                     code: ''
+                },
+                getCodeBtn: {
+                    disabled: false
+                },
+                signinBtn: {
+                    disabled: false
                 }
             }
         }
@@ -120,7 +169,7 @@
         width: 80%;
         margin: 10px auto;
     }
-    .form-phone {
+    .form-mobile {
         display: block;
         width: 100%;
         height: 40px;
@@ -146,7 +195,7 @@
         color: white;
         margin: 10px 0;
         font-size: $ft-form-normal;
-        background-color: gray;
+        background-color: $theme-color;
     }
     .form-submit {
         width: 100%;
