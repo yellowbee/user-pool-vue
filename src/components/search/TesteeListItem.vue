@@ -1,16 +1,10 @@
 <template>
     <li class="testee">
         <div class="head">
-            {{ testee.name }} | {{ testee.dob }} | {{ testee.sex }} | {{ testee.industry }} | {{ testee.edu }}
+            {{ testee.age }} | {{ testee.sex }} | {{ testee.industry }} | {{ testee.edu }}
         </div>
         <div class="section">
             {{ testee.desc }}
-        </div>
-        <div class="section">
-            <div class="sec-head">联系方式</div>
-            <div>
-                电话: {{ testee.phone }} 微信号: {{ testee.wechat }}
-            </div>
         </div>
         <div class="section">
             <div class="sec-head">期待测试报酬:</div>
