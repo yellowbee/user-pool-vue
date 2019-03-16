@@ -1,6 +1,6 @@
 <template>
     <div class="me">
-        <div class="wrapper" ref="wrapper">
+        <!-- <div class="wrapper" ref="wrapper"> -->
             <Header :title="'我'"/>
             <div class="find-content">
                 <div class="friend-circle">
@@ -9,7 +9,7 @@
                     <span class="label-text">这里登录或注册, 查看更多信息</span>
                 </router-link>
                 </div>
-                <router-link tag="div" @click.native="onClickSubRoute" class="friend-circle" to="/me/how-to">
+                <router-link tag="div" class="friend-circle" to="/me/how-to">
                     <img class="find-img" src="../../assets/me/guide.svg" />
                     <span class="find-item">使用指南</span>
                 </router-link>
@@ -18,10 +18,10 @@
                     <img class="find-img" src="../../assets/me/exit.svg" />
                     <span class="find-item">退出</span>
                 </div>
-                <Tabbar/>
             </div>
-        </div>
-        <router-view @backToMe="onBackToMe"></router-view>
+        <!-- </div> -->
+        <Tabbar/>
+        <router-view></router-view>
     </div>
 </template>
 

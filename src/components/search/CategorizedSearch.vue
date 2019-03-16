@@ -5,22 +5,22 @@
             <div class="title">关键词搜索测试者</div>
             <div class="container">
                 <!-- register click.native event to config slide-out effect  -->
-                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/学生">
+                <router-link tag="div" class="item" to="/search/testees/学生">
                     <label>学生</label>
                 </router-link>
-                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/互联网">
+                <router-link tag="div" class="item" to="/search/testees/互联网">
                     <label>互联网</label>
                 </router-link>
-                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/制造业">
+                <router-link tag="div" class="item" to="/search/testees/制造业">
                     <label>制造业</label>
                 </router-link>
-                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/金融">
+                <router-link  tag="div" class="item" to="/search/testees/金融">
                     <label>金融</label>
                 </router-link>
-                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/媒体">
+                <router-link tag="div" class="item" to="/search/testees/媒体">
                     <label>媒体</label>
                 </router-link>
-                <router-link @click.native="onClickCategory" tag="div" class="item" to="/search/testees/政府">
+                <router-link tag="div" class="item" to="/search/testees/政府">
                     <label>政府</label>
                 </router-link>
             </div>
@@ -28,7 +28,7 @@
         </div>
 
         <!-- catch backToMe event to config slide-in effect  -->
-        <router-view @backToMe="onBackToMe"></router-view>
+        <router-view></router-view>
     </div>
 </template>
 
