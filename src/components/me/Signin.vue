@@ -22,11 +22,11 @@
                     </mt-button>
                 </form>
             </div>
-            <router-link tag="div" @click.native="onClickSubRoute" class="helper-text" to="/me/sign-in/sign-up">
+            <router-link tag="div" class="helper-text" to="/me/sign-in/sign-up">
                 还没有账号? 请注册
             </router-link>
         </div>
-            <router-view @backToMe="onBackToMe"></router-view>
+            <router-view></router-view>
         </div>
     </transition>
 </template>

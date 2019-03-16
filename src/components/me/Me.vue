@@ -3,13 +3,13 @@
         <!-- <div class="wrapper" ref="wrapper"> -->
             <Header :title="'我'"/>
             <div class="find-content">
-                <div class="friend-circle">
-                <img class="avatar-img" src="../../assets/me/panda.png" />
+                <div class="avatar-bar">
+                <img class="avatar-img" src="../../assets/me/avatar.png" />
                 <router-link v-if="!isLoggedIn" tag="div" @click.native="onClickSubRoute" to="/me/sign-in">
                     <span class="label-text">这里登录或注册, 查看更多信息</span>
                 </router-link>
                 </div>
-                <router-link tag="div" class="friend-circle" to="/me/how-to">
+                <router-link tag="div" class="menu-bar" to="/me/how-to">
                     <img class="find-img" src="../../assets/me/guide.svg" />
                     <span class="find-item">使用指南</span>
                 </router-link>
@@ -89,16 +89,16 @@
         width: 100%;
         overflow: hidden;
     }
-    .friend-circle{
+    .avatar-bar{
         display: flex;
         align-items: center;
         left: 0;
-        height: 40px;
+        height: 60px;
         padding: 8px 10px;
         margin-top: 10px;
         background-color: #fff;
     }
-    .exit {
+    .exit, .menu-bar {
         display: flex;
         align-items: center;
         left: 0;
@@ -113,8 +113,8 @@
         padding-right: 20px;
     }
     .avatar-img {
-        height: 30px;
-        width: 30px;
+        height: 45px;
+        width: 45px;
         padding-right: 20px;
     }
     .animated.faster {
