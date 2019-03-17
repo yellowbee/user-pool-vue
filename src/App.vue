@@ -135,11 +135,6 @@
         padding-top: 14px;
         padding-left: 14px;
     }
-    .search img{
-        position: absolute;
-        top: 14px;
-        right: 80px;
-    }
     .tab{
         border-top: 1px solid rgba(153,153,153,0.4);
         display: flex;
