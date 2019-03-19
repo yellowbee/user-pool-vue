@@ -11,6 +11,8 @@ import Testees from '../components/search/Testees';
 import Signin from '../components/me/Signin';
 import Signup from '../components/me/Signup';
 import NewTask from '../components/tasks/NewTask';
+import QRcode from '../components/me/QRcode';
+import Terms from '../components/me/Terms';
 
 Vue.use(VueRouter);
 
@@ -61,6 +63,14 @@ export default new VueRouter({
                             component: Signup
                         }
                     ]
+                },
+                {
+                    path: 'qrcode',
+                    component: QRcode
+                },
+                {
+                    path: 'terms',
+                    component: Terms
                 }
             ]
         },

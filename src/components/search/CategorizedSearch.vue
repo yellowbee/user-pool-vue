@@ -1,7 +1,7 @@
 <template>
     <div class="search">
         <div class="wrapper" ref="wrapper">
-            <Header :title="'找人测试'"/>
+            <Header :title="'爱测试 (企业版)'"/>
             <div class="title">关键词搜索测试者</div>
             <div class="container">
                 <!-- register click.native event to config slide-out effect  -->
