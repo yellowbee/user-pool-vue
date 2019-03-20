@@ -8,11 +8,14 @@
                 </div>
                 <span>学生</span>
             </div> -->
-            <div class="spinner" v-if="testees.length === 0">
+            <div class="spinner" v-if="testees === null">
                 <mt-spinner size="50" color="#184b86" type="fading-circle"></mt-spinner>
             </div>
             <div v-else>
-                <TesteeList :testees="testees" />
+                <div v-if="testees.length === 0" style="text-align: center; margin-top: 200px;">此品类测试者正在招募中</div>
+                <div v-else>
+                    <TesteeList :testees="testees" />
+                </div>
             </div>
         </div>
     </transition>
@@ -31,7 +34,7 @@
         },
         data: function() {
             return {
-                testees: []
+                testees: null
             }
         },
         methods: {

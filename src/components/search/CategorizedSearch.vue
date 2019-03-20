@@ -3,26 +3,59 @@
         <div class="wrapper" ref="wrapper">
             <Header :title="'爱测试 (企业版)'"/>
             <div class="title">关键词搜索测试者</div>
-            <div class="container">
-                <!-- register click.native event to config slide-out effect  -->
-                <router-link tag="div" class="item" to="/search/testees/学生">
-                    <label>学生</label>
-                </router-link>
-                <router-link tag="div" class="item" to="/search/testees/互联网">
-                    <label>互联网</label>
-                </router-link>
-                <router-link tag="div" class="item" to="/search/testees/制造业">
-                    <label>制造业</label>
-                </router-link>
-                <router-link  tag="div" class="item" to="/search/testees/金融">
-                    <label>金融</label>
-                </router-link>
-                <router-link tag="div" class="item" to="/search/testees/媒体">
-                    <label>媒体</label>
-                </router-link>
-                <router-link tag="div" class="item" to="/search/testees/政府">
-                    <label>政府</label>
-                </router-link>
+            <mt-swipe :auto="0" :show-indicators="false" @change="handleChange">
+                <mt-swipe-item>
+                <div class="container">
+                    <!-- register click.native event to config slide-out effect  -->
+                    <router-link tag="div" class="item" to="/search/testees/学生">
+                        <label>学生</label>
+                    </router-link>
+                    <router-link tag="div" class="item" to="/search/testees/互联网">
+                        <label>互联网</label>
+                    </router-link>
+                    <router-link tag="div" class="item" to="/search/testees/制造业">
+                        <label>制造业</label>
+                    </router-link>
+                    <router-link  tag="div" class="item" to="/search/testees/金融">
+                        <label>金融</label>
+                    </router-link>
+                    <router-link tag="div" class="item" to="/search/testees/媒体">
+                        <label>媒体</label>
+                    </router-link>
+                    <router-link tag="div" class="item" to="/search/testees/政府">
+                        <label>政府</label>
+                    </router-link>
+                </div>
+                </mt-swipe-item>
+                <mt-swipe-item>
+                    <div class="container">
+                        <!-- register click.native event to config slide-out effect  -->
+                        <router-link tag="div" class="item" to="/search/testees/软件">
+                            <label>软件</label>
+                        </router-link>
+                        <router-link tag="div" class="item" to="/search/testees/通讯">
+                            <label>通讯</label>
+                        </router-link>
+                        <router-link tag="div" class="item" to="/search/testees/交通">
+                            <label>交通</label>
+                        </router-link>
+                        <router-link  tag="div" class="item" to="/search/testees/零售">
+                            <label>零售</label>
+                        </router-link>
+                        <router-link tag="div" class="item" to="/search/testees/建筑">
+                            <label>建筑</label>
+                        </router-link>
+                        <router-link tag="div" class="item" to="/search/testees/医疗">
+                            <label>医疗</label>
+                        </router-link>
+                    </div>
+                </mt-swipe-item>
+            </mt-swipe>
+            <div class="swipe-indicator">
+                <img v-if="index === 0" src="../../assets/search/filled-circle.png"/>
+                <img v-if="index !== 0" src="../../assets/search/circle.png"/>
+                <img v-if="index === 1" src="../../assets/search/filled-circle.png"/>
+                <img v-if="index !== 1" src="../../assets/search/circle.png"/>
             </div>
             <Tabbar/>
         </div>
@@ -35,12 +68,18 @@
 <script>
     import Tabbar from '../common/Tabbar';
     import Header from '../common/Header';
+    import { Swipe, SwipeItem } from 'mint-ui';
 
     export default {
         name: "CategorizedSearch",
         components: {
             Tabbar,
             Header
+        },
+        data: function() {
+          return {
+              index: 0
+          }
         },
         methods: {
             onClickCategory() {
@@ -52,6 +91,10 @@
                 const element = this.$refs.wrapper;
                 element.classList.remove('animated', 'slideOutLeft');
                 element.classList.add('animated', 'slideInLeft', 'faster');
+            },
+            handleChange(index) {
+                this.index = index;
+
             }
         },
         /* remove all slide effects when routing away from /search */
@@ -102,51 +145,17 @@
         text-align: center;
         padding: 60px 0;
     }
-
-    .chat-wrapper{
-        height: 100%;
-        overflow: hidden;
+    img {
+        width: 20px;
+        height: 20px;
+        margin: 0 10px;
     }
-    .item-cell{
-        position: relative;
-        border-bottom: 1px solid rgba(153,153,153,0.4);
-        height: 60px;
+    .mint-swipe {
+        height: 45%;
     }
-    .img-unread{
-        position: relative;
-    }
-    .img-unread span{
-        position: absolute;
-        top: 0;
-        left: 44px;
-        font-size: 10px;
-        line-height: 14px;
-        color: #fff;
-        height: 14px;
-        width: 14px;
-        text-align: center;
-        vertical-align: middle;
-        background-color: red;
-        border: 1px solid red;
-        border-radius: 50%;
-    }
-    .item-img{
-        float: left;
-        margin:10px 10px 10px 10px;
-    }
-    .dissname{
-        /*border: 1px solid red;*/
-        font-size: 14px;
-        font-weight: bold;
-        padding-top: 10px;
-        padding-left: 70px;
-    }
-    .summary{
-        font-size: 14px;
-        padding-top: 10px;
-        padding-left: 70px;
-        color: rgba(153,153,153,0.8);
-        font-style: italic;
+    .swipe-indicator {
+        width: 80px;
+        margin: 0 auto;
     }
     .item-time{
         position: absolute;
