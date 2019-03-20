@@ -151,7 +151,7 @@
         margin: 0 10px;
     }
     .mint-swipe {
-        height: 45%;
+        height: 250px;
     }
     .swipe-indicator {
         width: 80px;
