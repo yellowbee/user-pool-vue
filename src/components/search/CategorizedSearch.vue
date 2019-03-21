@@ -146,8 +146,8 @@
         padding: 60px 0;
     }
     img {
-        width: 20px;
-        height: 20px;
+        width: 7px;
+        height: 7px;
         margin: 0 10px;
     }
     .mint-swipe {
