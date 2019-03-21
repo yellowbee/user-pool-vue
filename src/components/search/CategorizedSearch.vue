@@ -52,10 +52,10 @@
                 </mt-swipe-item>
             </mt-swipe>
             <div class="swipe-indicator">
-                <img v-if="index === 0" src="../../assets/search/filled-circle.png"/>
-                <img v-if="index !== 0" src="../../assets/search/circle.png"/>
-                <img v-if="index === 1" src="../../assets/search/filled-circle.png"/>
-                <img v-if="index !== 1" src="../../assets/search/circle.png"/>
+                <img v-if="index === 0" src="../../assets/search/selected.png"/>
+                <img v-if="index !== 0" src="../../assets/search/not-selected.png"/>
+                <img v-if="index === 1" src="../../assets/search/selected.png"/>
+                <img v-if="index !== 1" src="../../assets/search/not-selected.png"/>
             </div>
             <Tabbar/>
         </div>
@@ -151,7 +151,7 @@
         margin: 0 10px;
     }
     .mint-swipe {
-        height: 250px;
+        height: 270px;
     }
     .swipe-indicator {
         width: 80px;
