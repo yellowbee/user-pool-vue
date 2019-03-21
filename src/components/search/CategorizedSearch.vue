@@ -154,7 +154,7 @@
         height: 270px;
     }
     .swipe-indicator {
-        width: 80px;
+        width: 54px;
         margin: 0 auto;
     }
     .item-time{
