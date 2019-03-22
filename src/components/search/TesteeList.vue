@@ -49,6 +49,7 @@
 <style scoped>
     .scroll-list {
         position: fixed;
+        width: 100%;
         top: 50px;
         left: 0;
         height: 100%;
