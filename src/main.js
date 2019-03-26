@@ -14,7 +14,7 @@ import './common/style.css' // 这里需要引入基本的样式
 // console.log('test')
 
 Vue.use(VueAnalytics, {
-    id: 'UA-80879372-2',
+    id: 'UA-136886236-1',
     router,
     debug: {
         enabled: process.env.NODE_ENV === 'development', // default false
