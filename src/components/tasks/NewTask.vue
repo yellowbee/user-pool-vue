@@ -164,7 +164,7 @@
                     this.errors.pay = null;
                 }
 
-                if (!this.task.mobile || !this.task.mobile.match(/^1[\d]{10}$/)) {
+                if (this.task.mobile && !this.task.mobile.match(/^1[\d]{10}$/)) {
                     this.errors.mobile = '请输入有效手机号';
                     success = false;
                 } else {
