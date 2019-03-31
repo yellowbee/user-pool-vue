@@ -50,12 +50,37 @@
                         </router-link>
                     </div>
                 </mt-swipe-item>
+                <mt-swipe-item>
+                    <div class="container">
+                        <!-- register click.native event to config slide-out effect  -->
+                        <router-link tag="div" class="item" to="/search/testees/汽车">
+                            <label>汽车</label>
+                        </router-link>
+                        <router-link tag="div" class="item" to="#">
+                            <label></label>
+                        </router-link>
+                        <router-link tag="div" class="item" to="#">
+                            <label></label>
+                        </router-link>
+                        <router-link  tag="div" class="item" to="#">
+                            <label></label>
+                        </router-link>
+                        <router-link tag="div" class="item" to="#">
+                            <label></label>
+                        </router-link>
+                        <router-link tag="div" class="item" to="#">
+                            <label></label>
+                        </router-link>
+                    </div>
+                </mt-swipe-item>
             </mt-swipe>
             <div class="swipe-indicator">
                 <img v-if="index === 0" src="../../assets/search/selected.png"/>
                 <img v-if="index !== 0" src="../../assets/search/not-selected.png"/>
                 <img v-if="index === 1" src="../../assets/search/selected.png"/>
                 <img v-if="index !== 1" src="../../assets/search/not-selected.png"/>
+                <img v-if="index === 2" src="../../assets/search/selected.png"/>
+                <img v-if="index !== 2" src="../../assets/search/not-selected.png"/>
             </div>
             <Tabbar/>
         </div>
@@ -154,7 +179,7 @@
         height: 270px;
     }
     .swipe-indicator {
-        width: 54px;
+        width: 81px;
         margin: 0 auto;
     }
     .item-time{
