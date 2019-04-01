@@ -56,11 +56,11 @@
                         <router-link tag="div" class="item" to="/search/testees/汽车">
                             <label>汽车</label>
                         </router-link>
-                        <router-link tag="div" class="item" to="#">
-                            <label></label>
+                        <router-link tag="div" class="item" to="/search/testees/文娱">
+                            <label>文娱</label>
                         </router-link>
-                        <router-link tag="div" class="item" to="#">
-                            <label></label>
+                        <router-link tag="div" class="item" to="/search/testees/教育">
+                            <label>教育</label>
                         </router-link>
                         <router-link  tag="div" class="item" to="#">
                             <label></label>
