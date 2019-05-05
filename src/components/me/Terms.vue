@@ -213,6 +213,7 @@
                 <div style="margin-top: 10px;">liukunlun@outlook.com</div>
                 <div style="margin-top: 10px;">2019年3月10日</div>
             </div>
+            <a href="skype:live:liukunlun?call">通过skype呼叫昆仑</a>
         </div>
     </transition>
 </template>
